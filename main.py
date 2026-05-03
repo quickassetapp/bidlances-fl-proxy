@@ -24,7 +24,7 @@ async def fl_login(body: dict, x_api_secret: str = Header(None)):
     if not email or not password:
         raise HTTPException(status_code=400, detail="missing fields")
 
-    proxies = {"http": PROXY_URL, "https": PROXY_URL} if PROXY_URL else None
+    proxies = None  # Sin proxy, usar IP de Railway directamente
 
     try:
         res = requests.post(
