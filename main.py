@@ -51,6 +51,11 @@ async def fl_login(body: dict, x_api_secret: str = Header(None)):
     if data.get("status") != "success":
         raise HTTPException(status_code=401, detail=data)
 
+    print("FL response:", data)
+
+    if "token" not in data.get("result", {}):
+        raise HTTPException(status_code=502, detail={"fl_response": data})
+
     fl_token   = data["result"]["token"]
     fl_user_id = str(data["result"]["user"])
 
